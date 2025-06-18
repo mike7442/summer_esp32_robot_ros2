@@ -1,0 +1,16 @@
+double battery_voltage = 0;
+uint32_t timer_of_voltage_check = 0;
+#define BATTERY_VOLTAGE_PIN 4
+#define PERIOD_OF_VOLTAGE_CHECK 2000
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  if (millis() - PERIOD_OF_VOLTAGE_CHECK > timer_of_voltage_check) {
+    battery_voltage = map(analogRead(BATTERY_VOLTAGE_PIN), 0, 4095, 0, 9.9);
+    Serial.println(battery_voltage);
+    timer_of_voltage_check = millis();
+  }
+}
