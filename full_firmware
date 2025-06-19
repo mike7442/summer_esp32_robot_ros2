@@ -11,9 +11,14 @@
 // constexpr char WIFI_PASS[] = "78914040";
 
 
+///* ---------- Wi-Fi ---------- */
+//constexpr char WIFI_SSID[] = "NOVA_B408";
+//constexpr char WIFI_PASS[] = "table2442";
+
+
 /* ---------- Wi-Fi ---------- */
-constexpr char WIFI_SSID[] = "NOVA_B408";
-constexpr char WIFI_PASS[] = "table2442";
+constexpr char WIFI_SSID[] = "delo";
+constexpr char WIFI_PASS[] = "78914040";
 
 
 /* ---------- Пины и параметры робота ---------- */
