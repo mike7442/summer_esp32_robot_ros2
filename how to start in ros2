@@ -1,10 +1,7 @@
-0.Открыть arduino IDE //узнать айпишник робота
-1.cd ros2_ws/src
-2.ros2 run esp32_bridge esp32_bridge --ros-args -p host:=192.168.0.147
-3.ros2 launch slam_toolbox online_sync_launch.py slam_params_file:=~ros2_ws/slam_param_misha.yaml
-4.ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap cmd_vel:=misha/cmd_vel
-
-0.Открыть arduino IDE //узнать айпишник робота
-ros2 run esp32_bridge esp32_bridge --ros-args -p host:=192.168.0.107
-ros2 launch slam_toolbox online_sync_launch.py slam_params_file:=/home/robotx/ros2_ws/slam_param.yaml
+Открыть arduino IDE //узнать айпишник робота
+cd ros2_ws/src
+ros2 run esp32_bridge esp32_bridge --ros-args -p host:=192.168.0.147
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
+rviz2
+ros2 launch slam_toolbox online_sync_launch.py slam_params_file:=home/robotx/ros2_ws/slam_param.yaml
+ros2 service call /slam_toolbox/serialize_map slam_toolbox/srv/SerializePoseGraph "{filename: '/home/robotx/ros2_ws/my_map'}"
