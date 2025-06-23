@@ -3,21 +3,22 @@
 #include <ESPAsyncWebServer.h>
 #include <cstdint>
 
-uint8_t* pack6FloatsToBytes(float f1, float f2, float f3, float f4, float f5, float f6) {
-    static uint8_t bytes[24]; 
+void pack6FloatsToBytes(float f1, float f2, float f3, float f4, float f5, float f6, uint8_t* bytes) {
     float inputs[6] = {f1, f2, f3, f4, f5, f6};
+
     for (int i = 0; i < 6; ++i) {
         union {
             float f;
             uint32_t i;
         } converter;
+
         converter.f = inputs[i];
+
         bytes[i * 4 + 0] = (converter.i >> 0) & 0xFF;
         bytes[i * 4 + 1] = (converter.i >> 8) & 0xFF;
         bytes[i * 4 + 2] = (converter.i >> 16) & 0xFF;
         bytes[i * 4 + 3] = (converter.i >> 24) & 0xFF;
     }
-    return bytes;
 }
 
 // Ваши WiFi настройки
@@ -64,14 +65,9 @@ void loop() {
   now = millis();
   if (now - lastSendTime > 50) {
     lastSendTime = now;
-
-    // // Подготавливаем массив бинарных данных (6 байт: числа 0,1,2,3,4,5)
-    // uint8_t message[6];
-    // for (int i = 0; i < 6; i++) {
-    //   message[i] = i;
-    // }
-    int data = pack6FloatsToBytes(1.23, -4.56, 7.89, 0.12, -3.45, 6.78);
+    uint8_t storage[24];
+    pack6FloatsToBytes(1.23, -4.56, 7.89, 0.12, -3.45, 140.78, storage);
     // Отправляем бинарные данные всем клиентам WebSocket
-    ws.binaryAll(data, sizeof(data));
+    ws.binaryAll(storage, sizeof(storage));
   }
 }
