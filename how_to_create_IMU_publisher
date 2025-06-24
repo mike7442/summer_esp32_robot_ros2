@@ -7,3 +7,5 @@ chmod +x IMU_publisher/IMU_publisher_node.py
 nano setup.py 
 'IMU_publisher = IMU_publisher.IMU_publisher_node:main',
 nano package.xml 
+<exec_depend>rclpy</exec_depend>
+<exec_depend>std_msgs</exec_depend>
