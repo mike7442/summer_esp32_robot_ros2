@@ -13,8 +13,8 @@ constexpr char WIFI_PASS[] = "table2442";
 
 /* ---------- Пины и параметры робота ---------- */
 // Двигатели (H-мосты)
-#define L_A 33
-#define L_B 32
+#define L_A 32
+#define L_B 33
 #define R_A 27
 #define R_B 26
 // Энкодеры (PCNT)
