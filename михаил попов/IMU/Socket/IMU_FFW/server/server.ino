@@ -8,8 +8,8 @@
 #include <TroykaIMU.h>
 
 // Настройки Wi-Fi
-constexpr char WIFI_SSID[] = "robotx";
-constexpr char WIFI_PASS[] = "78914040";
+constexpr char WIFI_SSID[] = "NOVA_B408";
+constexpr char WIFI_PASS[] = "table2442";
 
 /* ---------- Пины и параметры робота ---------- */
 // Двигатели (H-мосты)
@@ -481,7 +481,7 @@ void loop() {
     tGyro = millis();
     axel_rotate(axel_rotation);
     uint8_t buffer[24];
-    pack6FloatsToBytes(0.00, 0.00, 0.00, axel_rotation[0], axel_rotation[1], axel_rotation[2], buffer);
+    pack6FloatsToBytes(0.00, 0.00, 0.00, axel_rotation[0]/57.3, axel_rotation[1]/57.3, axel_rotation[2]/57.3, buffer);
     tcpClient.write(buffer, sizeof(buffer));
   }
   
