@@ -2,3 +2,5 @@ ros2 pkg create --build-type ament_python IMU_publisher
 cd ~/ros2_ws/src/IMU_publisher
 touch IMU_publisher/IMU_publisher_node.py
 nano IMU_publisher/IMU_publisher_node.py 
+cntrl+C cntrl+V
+chmod +x IMU_publisher/IMU_publisher_node.py 
