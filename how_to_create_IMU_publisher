@@ -4,3 +4,6 @@ touch IMU_publisher/IMU_publisher_node.py
 nano IMU_publisher/IMU_publisher_node.py 
 cntrl+C cntrl+V
 chmod +x IMU_publisher/IMU_publisher_node.py 
+nano setup.py 
+'IMU_publisher = IMU_publisher.IMU_publisher_node:main',
+nano package.xml 
