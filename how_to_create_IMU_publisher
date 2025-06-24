@@ -9,3 +9,6 @@ nano setup.py
 nano package.xml 
 <exec_depend>rclpy</exec_depend>
 <exec_depend>std_msgs</exec_depend>
+cd ~/ros2_ws
+colcon build
+source install/setup.bash
