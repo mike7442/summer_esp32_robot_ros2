@@ -14,7 +14,7 @@ colcon build
 source install/setup.bash
 source /opt/ros/jazzy/setup.bash
 ros2 run IMU_publisher IMU_publisher 
+ros2 run esp32_bridge esp32_bridge --ros-args -p host:=192.168.5.87
 
 
 
-sudo apt-get install ros-noetic-rviz-imu-plugin  # для Noetic
