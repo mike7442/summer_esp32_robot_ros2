@@ -14,3 +14,7 @@ colcon build
 source install/setup.bash
 source /opt/ros/jazzy/setup.bash
 ros2 run IMU_publisher IMU_publisher 
+
+
+
+sudo apt-get install ros-noetic-rviz-imu-plugin  # для Noetic
