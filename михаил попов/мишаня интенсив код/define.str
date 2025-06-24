@@ -1,0 +1,22 @@
+// ==== Пины моторов ====
+#define MOTOR1_A 32
+#define MOTOR1_B 33
+#define MOTOR2_A 27
+#define MOTOR2_B 26
+
+/* ── пины энкодеров ─────────────────────────────────────────*/
+#define ENC_R_A 18
+#define ENC_R_B 19
+#define ENC_L_A 34
+#define ENC_L_B 35
+
+pid my:
+kp = 0.4
+ki = 4.5
+kd = 0.025
+
+pid stas
+kp = 1,8
+ki = 3.8
+kd = 0
+fff = 0.6
