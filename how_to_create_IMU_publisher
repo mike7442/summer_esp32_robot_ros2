@@ -12,3 +12,5 @@ nano package.xml
 cd ~/ros2_ws
 colcon build
 source install/setup.bash
+source /opt/ros/jazzy/setup.bash
+ros2 run IMU_publisher IMU_publisher 
