@@ -1,11 +1,11 @@
-ros2 pkg create --build-type ament_python IMU_publisher
-cd ~/ros2_ws/src/IMU_publisher
-touch IMU_publisher/IMU_publisher_node.py
-nano IMU_publisher/IMU_publisher_node.py 
+ros2 pkg create --build-type ament_python imu_publisher
+cd ~/ros2_ws/src/imu_publisher
+touch imu_publisher/imu_publisher_node.py
+nano imu_publisher/imu_publisher_node.py 
 cntrl+C cntrl+V
-chmod +x IMU_publisher/IMU_publisher_node.py 
+chmod +x imu_publisher/imu_publisher_node.py 
 nano setup.py 
-'IMU_publisher = IMU_publisher.IMU_publisher_node:main',
+'imu_publisher = imu_publisher.imu_publisher_node:main',
 nano package.xml 
 <exec_depend>rclpy</exec_depend>
 <exec_depend>std_msgs</exec_depend>
@@ -13,8 +13,9 @@ cd ~/ros2_ws
 colcon build
 source install/setup.bash
 source /opt/ros/jazzy/setup.bash
-ros2 run IMU_publisher IMU_publisher 
+ros2 run imu_publisher imu_publisher 
+
+
 ros2 run esp32_bridge esp32_bridge --ros-args -p host:=192.168.5.87
 
-
-
+ros2 run esp32_bridge esp32_bridge --ros-args -p host:=192.168.0.102
