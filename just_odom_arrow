@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Pose, Twist, Vector3, Quaternion
+import numpy as np
+
+class ImuOdometry(Node):
+    def __init__(self):
+        super().__init__('imu_odometry')  # Сохранено оригинальное название
+        
+        # Публикатор Odometry
+        self.odom_pub = self.create_publisher(Odometry, '/odometry/raw', 10)
+        
+        # Таймер (10 Hz)
+        timer_period = 0.1
+        self.timer = self.create_timer(timer_period, self.publish_odometry)
+        
+        # Инициализация состояния
+        self.position = np.zeros(3)
+        self.velocity = np.array([0.1, 0.0, 0.0])  # м/с
+        self.orientation = Quaternion(w=1.0)  # Без вращения
+        
+        # Ковариации (обязательно для RViz)
+        self.pose_covariance = [0.01 if i%7==0 else 0.0 for i in range(36)]
+        self.twist_covariance = [0.01 if i%7==0 else 0.0 for i in range(36)]
+
+    def publish_odometry(self):
+        # Обновляем позицию (имитация движения)
+        self.position += self.velocity * 0.1
+        
+        # Создаем сообщение
+        odom_msg = Odometry()
+        odom_msg.header.stamp = self.get_clock().now().to_msg()
+        odom_msg.header.frame_id = "odom"
+        odom_msg.child_frame_id = "imu_link"  # или "base_link"
+        
+        # Заполняем данные
+        odom_msg.pose.pose = Pose(
+            position=Vector3(
+                x=self.position[0],
+                y=self.position[1],
+                z=self.position[2]
+            ),
+            orientation=self.orientation
+        )
+        
+        odom_msg.twist.twist = Twist(
+            linear=Vector3(
+                x=self.velocity[0],
+                y=self.velocity[1],
+                z=self.velocity[2]
+            ),
+            angular=Vector3()  # Нулевая угловая скорость
+        )
+        
+        # Устанавливаем ковариации
+        odom_msg.pose.covariance = self.pose_covariance
+        odom_msg.twist.covariance = self.twist_covariance
+        
+        # Публикуем
+        self.odom_pub.publish(odom_msg)
+        self.get_logger().info(
+            f'Position: x={self.position[0]:.2f}, y={self.position[1]:.2f}',
+            throttle_duration_sec=1.0
+        )
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = ImuOdometry()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
