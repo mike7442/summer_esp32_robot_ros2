@@ -12,7 +12,7 @@ class ImuPublisher(Node):
         self.publisher_ = self.create_publisher(Imu, 'imu/data', 10)
         
         # Настройка подключения к TCP-серверу IMU
-        self.last_digit = 100  # Измените на нужный IP
+        self.last_digit = 102  # Измените на нужный IP
         self.host = f"192.168.0.{self.last_digit}"
         self.port = 12345
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
