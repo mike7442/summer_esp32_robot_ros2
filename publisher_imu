@@ -5,10 +5,10 @@ from sensor_msgs.msg import Imu
 from geometry_msgs.msg import Quaternion, Vector3
 import random
 
-class ImuTalker(Node):
+class ImuPublisher(Node):  # Изменено название класса
     def __init__(self):
-        super().__init__('imu_talker')
-        self.publisher_ = self.create_publisher(Imu, 'imu_data', 10)
+        super().__init__('imu_publisher')  # Изменено имя ноды
+        self.publisher_ = self.create_publisher(Imu, 'imu/data', 10)  # Изменен топик
         timer_period = 0.1  # 10 Hz
         self.timer = self.create_timer(timer_period, self.publish_imu_data)
         
@@ -34,21 +34,19 @@ class ImuTalker(Node):
             x=random.uniform(-0.5, 0.5),
             y=random.uniform(-0.5, 0.5),
             z=random.uniform(-0.5, 0.5)
-        )  # <-- Закрывающая скобка была пропущена
-        
+        )
         # Линейное ускорение
         self.imu_msg.linear_acceleration = Vector3(
             x=random.uniform(-1.0, 1.0),
             y=random.uniform(-1.0, 1.0),
-            z=9.8 + random.uniform(-0.1, 0.1)
-        )
+            z=9.8 + random.uniform(-0.1, 0.1))
         
         self.publisher_.publish(self.imu_msg)
         self.get_logger().info('Publishing IMU data', throttle_duration_sec=1.0)
 
 def main(args=None):
     rclpy.init(args=args)
-    node = ImuTalker()
+    node = ImuPublisher()  # Используем новый класс
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
